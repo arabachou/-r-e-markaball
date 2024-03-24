@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image, ImageTk
 from fonctions import *
+from feuille_match import *
+from stats import *
 
 root = Tk()
 
@@ -56,28 +58,28 @@ style_bouton2.configure('Custom5.TLabel',
 )
 
 ttk.Label(canvas, text="Équipe A", style='Custom.TLabel').grid(column=2, row=1, pady=40)
-ttk.Button(canvas, text="2pts", style='Custom3.TLabel', command=menu_deroulant).grid(column=1, row=2, padx=10, pady=20)
-ttk.Button(canvas, text="3pts", style='Custom3.TLabel', command=menu_deroulant).grid(column=2, row=2, padx=10, pady=20)
-ttk.Button(canvas, text="LF", style='Custom3.TLabel', command=menu_deroulant).grid(column=3, row=2, padx=10, pady=20)
-ttk.Button(canvas, text="Rebond", style='Custom3.TLabel', command=menu_deroulant).grid(column=1, row=3, padx=10, pady=20)
-ttk.Button(canvas, text="Contre", style='Custom3.TLabel', command=menu_deroulant).grid(column=2, row=3, padx=10, pady=20)
-ttk.Button(canvas, text="Faute", style='Custom3.TLabel', command=menu_deroulant).grid(column=3, row=3, padx=10, pady=20)
-ttk.Button(canvas, text="Passe décisive", style='Custom3.TLabel', command=menu_deroulant).grid(column=1, row=4, padx=10, pady=20)
-ttk.Button(canvas, text="Perte de balle", style='Custom3.TLabel', command=menu_deroulant).grid(column=2, row=4, padx=10, pady=20)
-ttk.Button(canvas, text="Interception", style='Custom3.TLabel', command=menu_deroulant).grid(column=3, row=4, padx=10, pady=20)
-ttk.Button(canvas, text="Changement", style='Custom3.TLabel', command=menu_deroulant).grid(column=2, row=5, padx=10, pady=20)
+ttk.Button(canvas, text="2pts", style='Custom3.TLabel', command=lambda: menu_deroulant("2pts", "A")).grid(column=1, row=2, padx=10, pady=20)
+ttk.Button(canvas, text="3pts", style='Custom3.TLabel', command=lambda: menu_deroulant("3pts", "A")).grid(column=2, row=2, padx=10, pady=20)
+ttk.Button(canvas, text="LF", style='Custom3.TLabel', command=lambda: menu_deroulant("LF", "A")).grid(column=3, row=2, padx=10, pady=20)
+ttk.Button(canvas, text="Rebond", style='Custom3.TLabel', command=lambda: menu_deroulant("rebond", "A")).grid(column=1, row=3, padx=10, pady=20)
+ttk.Button(canvas, text="Contre", style='Custom3.TLabel', command=lambda: menu_deroulant("contre", "A")).grid(column=2, row=3, padx=10, pady=20)
+ttk.Button(canvas, text="Faute", style='Custom3.TLabel', command=lambda: menu_deroulant("faute", "A")).grid(column=3, row=3, padx=10, pady=20)
+ttk.Button(canvas, text="Passe décisive", style='Custom3.TLabel', command=lambda: menu_deroulant("passe décisive", "A")).grid(column=1, row=4, padx=10, pady=20)
+ttk.Button(canvas, text="Perte de balle", style='Custom3.TLabel', command=lambda: menu_deroulant("perte de balle", "A")).grid(column=2, row=4, padx=10, pady=20)
+ttk.Button(canvas, text="Interception", style='Custom3.TLabel', command=lambda: menu_deroulant("interception", "A")).grid(column=3, row=4, padx=10, pady=20)
+ttk.Button(canvas, text="Changement", style='Custom3.TLabel', command=lambda: menu_deroulant("changement", "A")).grid(column=2, row=5, padx=10, pady=20)
 
 ttk.Label(canvas, text="Équipe B", style='Custom2.TLabel').grid(column=6, row=1, pady=40)
-ttk.Button(canvas, text="2pts", style='Custom4.TLabel', command=menu_deroulant).grid(column=5, row=2, padx=10, pady=20)
-ttk.Button(canvas, text="3pts", style='Custom4.TLabel', command=menu_deroulant).grid(column=6, row=2, padx=10, pady=20)
-ttk.Button(canvas, text="LF", style='Custom4.TLabel', command=menu_deroulant).grid(column=7, row=2, padx=10, pady=20)
-ttk.Button(canvas, text="Rebond", style='Custom4.TLabel', command=menu_deroulant).grid(column=5, row=3, padx=10, pady=20)
-ttk.Button(canvas, text="Contre", style='Custom4.TLabel', command=menu_deroulant).grid(column=6, row=3, padx=10, pady=20)
-ttk.Button(canvas, text="Faute", style='Custom4.TLabel', command=menu_deroulant).grid(column=7, row=3, padx=10, pady=20)
-ttk.Button(canvas, text="Passe décisive", style='Custom4.TLabel', command=menu_deroulant).grid(column=5, row=4, padx=10, pady=20)
-ttk.Button(canvas, text="Perte de balle", style='Custom4.TLabel', command=menu_deroulant).grid(column=6, row=4, padx=10, pady=20)
-ttk.Button(canvas, text="Interception", style='Custom4.TLabel', command=menu_deroulant).grid(column=7, row=4, padx=10, pady=20)
-ttk.Button(canvas, text="Changement", style='Custom4.TLabel', command=menu_deroulant).grid(column=6, row=5, padx=10, pady=20)
+ttk.Button(canvas, text="2pts", style='Custom4.TLabel', command=lambda: menu_deroulant("2pts", "B")).grid(column=5, row=2, padx=10, pady=20)
+ttk.Button(canvas, text="3pts", style='Custom4.TLabel', command=lambda: menu_deroulant("3pts", "B")).grid(column=6, row=2, padx=10, pady=20)
+ttk.Button(canvas, text="LF", style='Custom4.TLabel', command=lambda: menu_deroulant("LF", "B")).grid(column=7, row=2, padx=10, pady=20)
+ttk.Button(canvas, text="Rebond", style='Custom4.TLabel', command=lambda: menu_deroulant("rebond", "B")).grid(column=5, row=3, padx=10, pady=20)
+ttk.Button(canvas, text="Contre", style='Custom4.TLabel', command=lambda: menu_deroulant("contre", "B")).grid(column=6, row=3, padx=10, pady=20)
+ttk.Button(canvas, text="Faute", style='Custom4.TLabel', command=lambda: menu_deroulant("faute", "B")).grid(column=7, row=3, padx=10, pady=20)
+ttk.Button(canvas, text="Passe décisive", style='Custom4.TLabel', command=lambda: menu_deroulant("passe décisive", "B")).grid(column=5, row=4, padx=10, pady=20)
+ttk.Button(canvas, text="Perte de balle", style='Custom4.TLabel', command=lambda: menu_deroulant("perte de balle", "B")).grid(column=6, row=4, padx=10, pady=20)
+ttk.Button(canvas, text="Interception", style='Custom4.TLabel', command=lambda: menu_deroulant("interception", "B")).grid(column=7, row=4, padx=10, pady=20)
+ttk.Button(canvas, text="Changement", style='Custom4.TLabel', command=lambda: menu_deroulant("changement", "B")).grid(column=6, row=5, padx=10, pady=20)
 
 ttk.Button(canvas, text="Accueil", style='Custom5.TLabel').grid(column=1, row=6, padx=5, pady=32)
 ttk.Button(canvas, text="Feuille", style='Custom5.TLabel').grid(column=7, row=6, padx=5, pady=32)

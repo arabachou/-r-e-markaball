@@ -1,4 +1,5 @@
 PointsEqA = []
 PointsEqB = []
 
- 
+FautesEqA = []
+FautesEqB = []
