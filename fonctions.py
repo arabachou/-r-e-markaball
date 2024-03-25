@@ -33,6 +33,8 @@ def new_event(type, equipe) :
             PointsEqA.append((3, joueur_selec))
         elif type == "LF" :
             PointsEqA.append((1, joueur_selec))
+        elif type == "faute" :
+            FautesEqA.append(joueur_selec)
 
     elif equipe == "B" :
 
@@ -44,6 +46,8 @@ def new_event(type, equipe) :
             PointsEqB.append((3, joueur_selec))
         elif type == "LF" :
             PointsEqB.append((1, joueur_selec))
+        elif type == "faute" :
+            FautesEqB.append(joueur_selec)
 
     fenetre_menu.destroy()
 
