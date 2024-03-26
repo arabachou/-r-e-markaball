@@ -37,41 +37,48 @@ def generate_feuille_match():
     data = {
         "EqA": {
             "Fautes": {
-                "Joueur 1": [True, False, False, False, False],
+                "Joueur 1": [False, False, False, False, False],
                 "Joueur 2": [False, False, False, False, False],
-                "Joueur 3": [True, True, True, True, True],
-                "Joueur 4": [False, False, False, False, False],
-                "Joueur 5": [True, False, False, False, False],
+                "Joueur 3": [False, False, False, False, False],
+                "Joueur 4": [True, True, False, False, False],
+                "Joueur 5": [False, False, False, False, False],
                 "Joueur 6": [False, False, False, False, False],
-                "Joueur 7": [True, True, True, True, True],
+                "Joueur 7": [False, False, False, False, False],
                 "Joueur 8": [False, False, False, False, False],
-                "Joueur 9": [True, False, False, False, False],
+                "Joueur 9": [False, False, False, False, False],
                 "Joueur 10": [False, False, False, False, False]
             },
-            "Points": [(2, "Joueur 4"), (3, "Joueur 7"), (1, "Joueur 3"), (2, "Joueur 10")]
+            "Points": [(2, "Joueur 5"), (3, "Joueur 8"), (1, "Joueur 4"), (1, "Joueur 4"), (2, "Joueur 1"), (2, "Joueur 8"), (1, "Joueur 8"), (3, "Joueur 6")]
         },
         "EqB": {
             "Fautes": {
-                "Joueur 1": [True, False, False, False, False],
+                "Joueur 1": [False, False, False, False, False],
                 "Joueur 2": [False, False, False, False, False],
-                "Joueur 3": [True, True, True, True, True],
+                "Joueur 3": [True, False, False, False, False],
                 "Joueur 4": [False, False, False, False, False],
-                "Joueur 5": [True, False, False, False, False],
+                "Joueur 5": [False, False, False, False, False],
                 "Joueur 6": [False, False, False, False, False],
-                "Joueur 7": [True, True, True, True, True],
+                "Joueur 7": [True, False, False, False, False],
                 "Joueur 8": [False, False, False, False, False],
-                "Joueur 9": [True, False, False, False, False],
+                "Joueur 9": [False, False, False, False, False],
                 "Joueur 10": [False, False, False, False, False]
             },
-            "Points": [(2, "Joueur 1"), (3, "Joueur 4"), (2, "Joueur 9")]
+            "Points": [(2, "Joueur 1"), (2, "Joueur 10"), (2, "Joueur 7"), (1, "Joueur 7")]
         }
     }
+
+    score_eqA = sum([points[0] for points in data["EqA"]["Points"]]) if data["EqA"]["Points"] else 0
+    score_eqB = sum([points[0] for points in data["EqB"]["Points"]]) if data["EqB"]["Points"] else 0
+
+    last_scorer_eqA = data["EqA"]["Points"][-1][1].split()[-1] if data["EqA"]["Points"] else ""
+    last_scorer_eqB = data["EqB"]["Points"][-1][1].split()[-1] if data["EqB"]["Points"] else ""
 
     faults_table(c, data["EqA"]["Fautes"], x_left, y_top - 50, cell_width, cell_height, "Équipe A")
     faults_table(c, data["EqB"]["Fautes"], x_left, y_top - 250, cell_width, cell_height, "Équipe B")
 
     points_table(c, data["EqA"]["Points"] + data["EqB"]["Points"], x_right, y_top, cell_width, cell_height)
 
+    update_points_table(c, data["EqA"]["Points"], data["EqB"]["Points"], x_right, y_top, cell_width, cell_height)
 
     c.showPage()
 
@@ -118,7 +125,6 @@ def faults_table(c, data, x, y, cell_width, cell_height, equipe):
 
 
 
-
 def points_table(c, data, x, y, cell_width, cell_height):
     c.setFont("Helvetica", 8)
     num_columns = 4
@@ -131,7 +137,7 @@ def points_table(c, data, x, y, cell_width, cell_height):
         
         c.setFont("Helvetica-Bold", 8)
         c.drawString(x + offset * 152 + 20, y + 5, "Équipe A")
-        c.drawString(x + offset * 152 + 2 * cell_width + 20, y + 5, "Équipe B")
+        c.drawString(x + offset * 152 + 2 * cell_width + 30, y + 5, "Équipe B")
         c.setFont("Helvetica", 8)
         
         for col in range(1, num_columns - 1):
@@ -160,6 +166,60 @@ def points_table(c, data, x, y, cell_width, cell_height):
             for row in range(num_rows):
                 c.rect(x + (col + offset * 4) * cell_width, y - (row + 1) * cell_height, cell_width, cell_height)
 
- 
+
+def update_points_table(c, points_list_eqA, points_list_eqB, x, y, cell_width, cell_height):
+    c.setFont("Helvetica", 8)
+    num_rows = 70
+
+    x += 35
+    y += 70 - cell_height
+
+    cumulative_points_eqA = 0
+    cumulative_points_eqB = 0
+
+    for points, player in points_list_eqA:
+        text_width = c.stringWidth(player, "Helvetica", 8)
+        x_position = x + (cell_width - text_width) / 2 + 13
+        cumulative_points_eqA += points
+        if cumulative_points_eqA <= num_rows:
+            y_position = y - (cumulative_points_eqA - 1) * cell_height + cell_height/2 - 4
+        else:
+            y_position = y - (num_rows - 1) * cell_height + cell_height/2 - 4
+        c.drawString(x_position, y_position, player.split()[-1])
+
+
+    for points, player in points_list_eqB:
+        text_width = c.stringWidth(player, "Helvetica", 8)
+        x_position = x + 3 * cell_width + (cell_width - text_width) / 2 + 13
+        cumulative_points_eqB += points
+        if cumulative_points_eqB <= num_rows:
+            y_position = y - (cumulative_points_eqB - 1) * cell_height + cell_height/2 - 4
+        else:
+            y_position = y - (num_rows - 1) * cell_height + cell_height/2 - 4
+        c.drawString(x_position, y_position, player.split()[-1])
+
+
+    for row in range(num_rows):
+        c.rect(x, y - row * cell_height, 4 * cell_width, cell_height)
+
+    for points, player in points_list_eqA:
+        if points > num_rows:
+            for i in range(num_rows + 1, points + 1):
+                text_width = c.stringWidth(player, "Helvetica", 8)
+                x_position = x + (cell_width - text_width) / 2 + 13
+                y_position = y - (i - 1) * cell_height + cell_height/2 - 4
+                c.drawString(x_position, y_position, player.split()[-1])
+
+
+    for points, player in points_list_eqB:
+        if points > num_rows:
+            for i in range(num_rows + 1, points + 1):
+                text_width = c.stringWidth(player, "Helvetica", 8)
+                x_position = x + 3 * cell_width + (cell_width - text_width) / 2 + 13
+                y_position = y - (i - 1) * cell_height + cell_height/2 - 4
+                c.drawString(x_position, y_position, player.split()[-1])
+
+
+
 if __name__ == "__main__":
     generate_feuille_match()
